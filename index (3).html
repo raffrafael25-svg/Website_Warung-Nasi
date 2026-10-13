@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praktikum Bootstrap - Resto Nusantara</title>
+    
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy-dark: #0a192f;
+            --navy-medium: #1e3c72;
+            --silver-bg: #f8f9fa;
+            --silver-card: #ffffff;
+            --silver-border: #e0e0e0;
+            --orange-start: #ff6b08;
+            --orange-end: #f12711;
+            
+            /* Gradients */
+            --grad-hero: linear-gradient(135deg, #0a192f 0%, #1e3c72 50%, #ff6b08 100%);
+            --grad-orange: linear-gradient(135deg, #ff6b08 0%, #f12711 100%);
+            --grad-card-header: linear-gradient(90deg, #0a192f 0%, #1e3c72 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .navbar-custom {
+            background: var(--navy-dark);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            border-bottom: 3px solid var(--orange-start);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.35rem;
+        }
+
+        .navbar-custom .navbar-brand span {
+            color: var(--orange-start);
+        }
+
+        .navbar-custom .nav-link {
+            color: #e0e0e0;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .nav-link.active {
+            color: #ffffff;
+            background: rgba(255, 107, 8, 0.2);
+            border-bottom: 2px solid var(--orange-start);
+        }
+
+        /* Creative Badge for Opening Hours */
+        .badge-open-hours {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 107, 8, 0.5);
+            color: #e0e0e0;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .hero-section {
+            background: var(--grad-hero);
+            color: #ffffff;
+            padding: 85px 0 75px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-semester {
+            background: var(--grad-orange);
+            color: #ffffff;
+            font-size: 0.85rem;
+            padding: 8px 18px;
+            letter-spacing: 0.8px;
+        }
+
+        .btn-orange-grad {
+            background: var(--grad-orange);
+            color: #ffffff;
+            font-weight: 600;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(255, 107, 8, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-orange-grad:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(255, 107, 8, 0.6);
+        }
+
+        .card-custom {
+            border: 1px solid var(--silver-border);
+            border-radius: 14px;
+            background: var(--silver-card);
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 28px rgba(10, 25, 47, 0.15) !important;
+            border-color: var(--orange-start);
+        }
+
+        .card-header-custom {
+            background: var(--grad-card-header);
+            color: #ffffff;
+            border-bottom: 3px solid var(--orange-start);
+            padding: 16px;
+            font-weight: 600;
+        }
+
+        .price-tag {
+            background: rgba(255, 107, 8, 0.12);
+            color: #d95100;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .order-section {
+            background-color: var(--silver-bg);
+            border-top: 1px solid var(--silver-border);
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-top: 5px solid var(--orange-start);
+            border-radius: 14px;
+        }
+
+        .form-control:focus {
+            border-color: var(--orange-start);
+            box-shadow: 0 0 0 0.25rem rgba(255, 107, 8, 0.25);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: #ffffff;
+            font-weight: 600;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .modal-header-custom {
+            background: var(--navy-dark);
+            color: #ffffff;
+            border-bottom: 3px solid var(--orange-start);
+        }
+
+        footer {
+            background-color: var(--navy-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="bi bi-shop text-warning fs-3"></i>
+                <span>Warung Nasi</span>Teh Hani
+            </a>
+            
+            <!-- Information Schedule Badge on Mobile/Desktop -->
+            <div class="d-none d-sm-flex align-items-center ms-3">
+                <div class="badge-open-hours">
+                    <span class="status-dot"></span>
+                    <span><strong>Jadwal Buka:</strong> 17.00 - Habis</span>
+                </div>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1 align-items-lg-center">
+                    <!-- Mobile View Badge Info -->
+                    <li class="nav-item d-sm-none my-2">
+                        <div class="badge-open-hours w-100 justify-content-center">
+                            <span class="status-dot"></span>
+                            <span><strong>Jadwal Buka:</strong> 17.00 - Habis</span>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#home"><i class="bi bi-house-door me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kuliner"><i class="bi bi-egg-fried me-1"></i> Menu & Lokasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pesan"><i class="bi bi-cart-check me-1"></i> Pesan Sekarang</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="home" class="hero-section text-center">
+        <div class="container position-relative" style="z-index: 2;">
+            <span class="badge rounded-pill badge-semester mb-3 shadow-sm">Warung Nasi</span>
+            <h1 class="fw-bold display-5 mb-2">Halo! Selamat Datang</h1>
+            <p class="lead mb-4 text-light opacity-90">Masakan Kuliner Indonesia Ala Teh Hani</p>
+            <a href="#pesan" class="btn btn-orange-grad text-decoration-none fs-6">
+                <i class="bi bi-whatsapp me-2"></i>Pesan Sekarang via WA
+            </a>
+        </div>
+    </div>
+
+    <!-- Section 3 Cards -->
+    <div id="kuliner" class="container py-5">
+        <h2 class="text-center fw-bold mb-4" style="color: var(--navy-dark);">Informasi Warung Nasi Teh Hani</h2>
+        
+        <div class="row g-4">
+            <!-- Card 1: Menu dan Harga -->
+            <div class="col-md-4">
+                <div class="card card-custom shadow-sm">
+                    <div class="card-header-custom d-flex align-items-center gap-2">
+                        <i class="bi bi-journal-text fs-5 text-warning"></i>
+                        <h5 class="card-title m-0 fs-6">Menu & Harga</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text text-muted small mb-3">Daftar hidangan masakan Indonesia .</p>
+                        <ul class="list-group list-group-flush menu-list small">
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="bi bi-check-circle-fill text-warning me-2"></i>Nasi Uduk</span>
+                                <span class="price-tag">Rp 5.000</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="bi bi-check-circle-fill text-warning me-2"></i>Ayam Kampung Goreng</span>
+                                <span class="price-tag">Rp 15.000</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="bi bi-check-circle-fill text-warning me-2"></i>Ayam Kapung Kecap</span>
+                                <span class="price-tag">Rp 15.000</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="bi bi-check-circle-fill text-warning me-2"></i>Soun Kecap</span>
+                                <span class="price-tag">Rp 5.000</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="bi bi-check-circle-fill text-warning me-2"></i>Perkedel</span>
+                                <span class="price-tag">Rp 2.000</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Foto Tempat Makan -->
+            <div class="col-md-4">
+                <div class="card card-custom shadow-sm">
+                    <div class="card-header-custom d-flex align-items-center gap-2">
+                        <i class="bi bi-image fs-5 text-warning"></i>
+                        <h5 class="card-title m-0 fs-6">Foto Tempat Makan</h5>
+                    </div>
+                    <div class="card-body text-center p-3">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" 
+                             alt="Foto Tempat Makan Resto Nusantara" 
+                             class="img-fluid rounded-3 shadow-sm mb-3" 
+                             style="height: 180px; width: 100%; object-fit: cover;">
+                        <p class="card-text text-muted small">Suasana tempat makan sederhana, dengan view jalan raya di sore hari. Cocok sekali makan bersama keluarga maupun pasangan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Link Google Maps -->
+            <div class="col-md-4">
+                <div class="card card-custom shadow-sm">
+                    <div class="card-header-custom d-flex align-items-center gap-2">
+                        <i class="bi bi-geo-alt-fill fs-5 text-warning"></i>
+                        <h5 class="card-title m-0 fs-6">Lokasi Warung Nasi Teh Hani</h5>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <p class="card-text text-muted small mb-2">Temukan lokasi kami secara presisi di Google Maps:</p>
+                            <!-- Responsive Google Maps Embed -->
+                            <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-sm mb-3">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.7464271959853!2d107.446717703757!3d-6.528904476680906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1791895246615!5m2!1sid!2sid" 
+                                        style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-outline-dark w-100 btn-sm fw-semibold">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Buka Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Info -->
+        <div class="alert alert-light border mt-4 mb-0 shadow-sm text-center fw-medium" role="alert" style="background-color: #ffffff; color: var(--navy-dark);">
+            <i class="bi bi-info-circle-fill text-warning me-2"></i>Menu makan yang lezat dan pas untuk di santap saat lapar tiba. Yuk Pesan sekarang!
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div id="pesan" class="order-section py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-4" style="color: var(--navy-dark);">Pesan Sekarang</h2>
+            
+            <form id="formPemesanan" class="mx-auto form-container p-4 shadow-sm" style="max-width: 550px;">
+                <!-- Input Nama -->
+                <div class="mb-3">
+                    <label for="input-nama" class="form-label fw-semibold">Nama Pemesan</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" id="input-nama" placeholder="Masukkan nama anda" required>
+                    </div>
+                </div>
+
+                <!-- Input No Telepon -->
+                <div class="mb-3">
+                    <label for="input-telepon" class="form-label fw-semibold">No Telepon / WhatsApp</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-telephone"></i></span>
+                        <input type="tel" class="form-control" id="input-telepon" placeholder="Contoh: 08123456789" required>
+                    </div>
+                </div>
+
+                <!-- Input Pesanan Anda -->
+                <div class="mb-4">
+                    <label for="input-pesanan" class="form-label fw-semibold">Input Pesanan Anda</label>
+                    <textarea class="form-control" id="input-pesanan" rows="3" placeholder="Tuliskan menu pesanan dan jumlahnya (misal: Nasi Goreng Spesial 2x, Es Teh Jumbo 2x)..." required></textarea>
+                </div>
+
+                <!-- Button Kirim WhatsApp -->
+                <button type="button" class="btn btn-whatsapp w-100 py-2 fs-6" onclick="tampilkanModalKonfirmasi()">
+                    <i class="bi bi-whatsapp me-2"></i>Kirim Pesan via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Bootstrap -->
+    <div class="modal fade" id="modalKonfirmasi" tabindex="-1" aria-labelledby="modalKonfirmasiLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title fw-bold" id="modalKonfirmasiLabel">
+                        <i class="bi bi-whatsapp text-success me-2"></i>Konfirmasi Pesanan WhatsApp
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted small mb-3">Pesanan Anda akan langsung diteruskan ke WhatsApp Warung Nasi Teh Hani berikut: <strong>+62 812-3456-7890</strong></p>
+                    <div class="bg-light p-3 rounded-3 border">
+                        <div class="mb-2">
+                            <span class="fw-bold text-dark d-block">Nama Pemesan:</span>
+                            <span id="modal-nama" class="text-secondary">-</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="fw-bold text-dark d-block">No Telepon:</span>
+                            <span id="modal-telepon" class="text-secondary">-</span>
+                        </div>
+                        <div>
+                            <span class="fw-bold text-dark d-block">Rincian Pesanan:</span>
+                            <span id="modal-pesanan" class="text-secondary">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-whatsapp btn-sm px-4" onclick="kirimKeWhatsApp()">
+                        <i class="bi bi-send-fill me-1"></i> Lanjutkan ke WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-center py-4">
+        <div class="container">
+            <p class="mb-1 fw-semibold">&copy; 2026 Warung Nasi Teh Hani. All Rights Reserved.</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+            </svg> <small class="text-light opacity-75">Perumahan Oesman Singawinata</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Nomor telepon WhatsApp Tujuan Restoran (Format Internasional tanpa tanda + / 0)
+        const NOMOR_WA_RESTO = "6281234567890";
+
+        // Fungsi untuk mengambil data dan menampilkan modal konfirmasi
+        function tampilkanModalKonfirmasi() {
+            const nama = document.getElementById('input-nama').value.trim();
+            const telepon = document.getElementById('input-telepon').value.trim();
+            const pesanan = document.getElementById('input-pesanan').value.trim();
+
+            if (!nama || !telepon || !pesanan) {
+                alert('Mohon lengkapi semua kolom (Nama, No Telepon, dan Pesanan) terlebih dahulu!');
+                return;
+            }
+
+            // Memasukkan data dari form ke dalam modal konfirmasi
+            document.getElementById('modal-nama').innerText = nama;
+            document.getElementById('modal-telepon').innerText = telepon;
+            document.getElementById('modal-pesanan').innerText = pesanan;
+
+            // Menampilkan modal konfirmasi Bootstrap
+            const modalElement = document.getElementById('modalKonfirmasi');
+            const modalInstance = new bootstrap.Modal(modalElement);
+            modalInstance.show();
+        }
+
+        // Fungsi untuk memformat pesan dan langsung mengarahkan ke WhatsApp
+        function kirimKeWhatsApp() {
+            const nama = document.getElementById('input-nama').value.trim();
+            const telepon = document.getElementById('input-telepon').value.trim();
+            const pesanan = document.getElementById('input-pesanan').value.trim();
+
+            // Format Pesan WhatsApp
+            const textPesan = `Halo Resto Nusantara! Saya ingin memesan makanan.%0A%0A` +
+                `*Data Pemesan:*%0A` +
+                `• *Nama:* ${encodeURIComponent(nama)}%0A` +
+                `• *No Telepon:* ${encodeURIComponent(telepon)}%0A%0A` +
+                `*Rincian Pesanan:*%0A` +
+                `${encodeURIComponent(pesanan)}%0A%0A` +
+                `Mohon segera diproses ya, terima kasih!`;
+
+            // Buka URL WhatsApp
+            const urlWhatsApp = `https://wa.me/${628229798966}?text=${textPesan}`;
+
+            // Tutup Modal
+            const modalElement = document.getElementById('modalKonfirmasi');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+
+            // Redirect / Buka Tab Baru ke WA
+            window.open(wa.me/6282297998966, '_blank');
+        }
+    </script>
+</body>
+</html>
